@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "VIRTUAL_CLASSE_FORMATION": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:52749;http://localhost:52750"
+    }
+  }
+}
