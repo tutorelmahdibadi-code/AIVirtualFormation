@@ -16,6 +16,9 @@ Sur la page `/avatar-test.html`, après connexion, renseignez :
 
 Puis cliquez sur **« Démarrer la séance »** (autoriser le micro lorsque le navigateur le demande).
 
+Ces ids (`3` et `1`) correspondent à un formateur et un module créés à titre d'exemple pour la démonstration. L'application permet de créer autant de formateurs, formations et modules que nécessaire via l'API (`POST /api/Formateurs`, `POST /api/Formations`, `POST /api/Modules`) — chaque formateur peut avoir son propre avatar IA (persona Anam.ai différent), chaque module son propre contenu.
+
+
 # g2soir — Plateforme de gestion des formations
 
 API ASP.NET Core (.NET 8) couvrant le cahier des charges :
