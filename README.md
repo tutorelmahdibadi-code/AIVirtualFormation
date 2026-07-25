@@ -1,3 +1,21 @@
+## 🔑 Accès de test
+
+**Application en ligne**
+- Documentation API (Swagger) : https://aivirtualformation-production.up.railway.app/swagger/index.html
+- Interface du formateur IA : https://aivirtualformation-production.up.railway.app/avatar-test.html
+
+**Identifiants de test**
+- Login : `verif@test.local`
+- Mot de passe : `Test1234!`
+
+**Tester le formateur IA**
+
+Sur la page `/avatar-test.html`, après connexion, renseignez :
+- Id du formateur : `3`
+- Id du module : `1`
+
+Puis cliquez sur **« Démarrer la séance »** (autoriser le micro lorsque le navigateur le demande).
+
 # g2soir — Plateforme de gestion des formations
 
 API ASP.NET Core (.NET 8) couvrant le cahier des charges :
