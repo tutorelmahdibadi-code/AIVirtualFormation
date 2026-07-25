@@ -98,3 +98,6 @@ séparé (React, Angular, Blazor WASM...) qui consomme ces endpoints.
 
   <img width="1896" height="929" alt="Capture d’écran 2026-07-25 100019" src="https://github.com/user-attachments/assets/cc12d39c-51b3-46cd-af79-536878700611" />
 
+  <img width="1733" height="942" alt="image" src="https://github.com/user-attachments/assets/b7a58fd0-5f6d-4d20-98f3-6bfeace9ac36" />
+
+
