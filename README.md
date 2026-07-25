@@ -95,3 +95,6 @@ séparé (React, Angular, Blazor WASM...) qui consomme ces endpoints.
 - Restreindre la policy CORS (`AllowAnyOrigin`) à l'URL réelle du frontend
 - Ne jamais committer `appsettings.json` avec de vraies clés — utiliser
   `dotnet user-secrets` ou les variables d'environnement Railway
+
+  <img width="1896" height="929" alt="Capture d’écran 2026-07-25 100019" src="https://github.com/user-attachments/assets/cc12d39c-51b3-46cd-af79-536878700611" />
+
