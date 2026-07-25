@@ -1,311 +1,810 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Test Formateur IA (Anam.ai)</title>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Poppins',sans-serif;
-    }
-
-    .card {
-        background: white;
-        border-radius: 22px;
-        padding: 22px;
-        box-shadow: 0 10px 25px rgba(0,0,0,.05);
-    }
-
-    h1 {
-        color: #fff;
-        font-size: 30px;
-        margin-bottom: 10px;
-    }
-
-    .subtitle {
-        color: #d1d5db;
-        margin-bottom: 20px;
-    }
-
-    label {
-        display: block;
-        margin: 15px 0 8px;
-        font-weight: 600;
-        color: #555;
-    }
-
-    input {
-        width: 100%;
-        padding: 14px;
-        border-radius: 12px;
-        border: 1px solid #ddd;
-        outline: none;
-    }
-
-    button {
-        background: linear-gradient(90deg,#ff6ea8,#ff8b6a);
-        border: none;
-        color: white;
-        border-radius: 15px;
-        padding: 15px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: .3s;
-    }
-
-        button:hover {
-            transform: scale(1.03);
-        }
-    body {
-        margin: 0;
-        background: linear-gradient(135deg,#fff7f9,#ffeef6,#fff4fb);
-        font-family: Poppins,sans-serif;
-    }
-
-    .container {
-        width: 96%;
-        height: 96vh;
-        margin: 2vh auto;
-        display: grid;
-        grid-template-columns: 330px 1fr;
-        gap: 25px;
-        background: white;
-        border-radius: 35px;
-        padding: 22px;
-        box-shadow: 0 20px 60px rgba(244,114,182,.15);
-    }
-
-    .left-panel {
-        background: #fff8fb;
-        border-radius: 28px;
-        padding: 25px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .right-panel {
-        display: flex;
-    }
-
-    .video-card {
-        flex: 1;
-        background: white;
-        border-radius: 25px;
-        overflow: hidden;
-        box-shadow: 0 20px 40px rgba(0,0,0,.10);
-    }
-
-    .video-header {
-        height: 65px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(90deg,#ff6ea8,#ff8b6a);
-        color: white;
-        font-size: 24px;
-        font-weight: bold;
-    }
-
-    #avatar-video {
-        width: 100%;
-        height: calc(100vh - 170px);
-        object-fit: contain;
-        background: #ffeef5;
-        border-radius: 0 0 25px 25px;
-    }
-
-    .status {
-        padding: 18px;
-        border-radius: 15px;
-        background: #fff7ed;
-        color: #c2410c;
-        border-left: 6px solid #fb923c;
-    }
-
-    @media(max-width:1000px) {
-
-        .container {
-            grid-template-columns: 1fr;
-            height: auto;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Salle de classe · Formateur IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #14211F;
+            --ink-2: #1C2B27;
+            --ink-3: #24352F;
+            --line: #35473F;
+            --chalk: #F3EFE3;
+            --chalk-dim: #AEBAB2;
+            --amber: #E7B547;
+            --amber-soft: rgba(231, 181, 71, 0.14);
+            --aqua: #56C9BA;
+            --aqua-soft: rgba(86, 201, 186, 0.14);
+            --danger: #D9705F;
+            --radius: 14px;
+            --display: "Fraunces", Georgia, serif;
+            --body: "IBM Plex Sans", -apple-system, sans-serif;
+            --mono: "IBM Plex Mono", ui-monospace, monospace;
         }
 
-        #avatar-video {
-            height: 500px;
+        * {
+            box-sizing: border-box;
         }
-    }
-</style>
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at 15% 0%, rgba(86,201,186,0.05), transparent 45%), radial-gradient(circle at 85% 100%, rgba(231,181,71,0.05), transparent 45%), var(--ink);
+            color: var(--chalk);
+            font-family: var(--body);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 28px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .brand {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            font-family: var(--display);
+            font-style: italic;
+            font-weight: 500;
+            font-size: 19px;
+            letter-spacing: 0.01em;
+        }
+
+            .brand .dot {
+                color: var(--amber);
+                font-style: normal;
+            }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--chalk-dim);
+            padding: 7px 14px;
+            border: 1px solid var(--line);
+            border-radius: 100px;
+        }
+
+            .status-pill .led {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: var(--chalk-dim);
+                transition: background .3s, box-shadow .3s;
+            }
+
+            .status-pill[data-state="live"] {
+                color: var(--aqua);
+                border-color: rgba(86,201,186,0.35);
+            }
+
+                .status-pill[data-state="live"] .led {
+                    background: var(--aqua);
+                    box-shadow: 0 0 0 4px var(--aqua-soft);
+                }
+
+            .status-pill[data-state="connecting"] {
+                color: var(--amber);
+                border-color: rgba(231,181,71,0.35);
+            }
+
+                .status-pill[data-state="connecting"] .led {
+                    background: var(--amber);
+                    animation: pulse 1.1s ease-in-out infinite;
+                }
+
+            .status-pill[data-state="error"] {
+                color: var(--danger);
+                border-color: rgba(217,112,95,0.35);
+            }
+
+                .status-pill[data-state="error"] .led {
+                    background: var(--danger);
+                }
+
+        @keyframes pulse {
+            0%,100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .3;
+            }
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 24px;
+            padding: 24px 28px 40px;
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 880px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .notebook {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--ink-2);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 18px 18px 20px;
+        }
+
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--chalk-dim);
+            margin: 0 0 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 12.5px;
+            color: var(--chalk-dim);
+            margin: 12px 0 6px;
+        }
+
+            label:first-of-type {
+                margin-top: 0;
+            }
+
+        input {
+            width: 100%;
+            background: var(--ink);
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            padding: 10px 12px;
+            color: var(--chalk);
+            font-family: var(--body);
+            font-size: 14px;
+            transition: border-color .15s;
+        }
+
+            input::placeholder {
+                color: #5C6B64;
+            }
+
+            input:focus {
+                outline: none;
+                border-color: var(--amber);
+                box-shadow: 0 0 0 3px var(--amber-soft);
+            }
+
+        button {
+            font-family: var(--body);
+            font-weight: 500;
+            font-size: 14px;
+            border-radius: 9px;
+            border: none;
+            padding: 11px 16px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 14px;
+            transition: transform .12s ease, filter .15s ease, opacity .15s;
+        }
+
+            button:focus-visible {
+                outline: 2px solid var(--amber);
+                outline-offset: 2px;
+            }
+
+            button:active {
+                transform: scale(0.98);
+            }
+
+            button:disabled {
+                opacity: .4;
+                cursor: not-allowed;
+            }
+
+        .btn-primary {
+            background: var(--amber);
+            color: #1B1506;
+        }
+
+            .btn-primary:hover:not(:disabled) {
+                filter: brightness(1.08);
+            }
+
+        .btn-live {
+            background: var(--aqua);
+            color: #08211E;
+        }
+
+            .btn-live:hover:not(:disabled) {
+                filter: brightness(1.08);
+            }
+
+        .signed-in {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            font-size: 13.5px;
+            color: var(--chalk-dim);
+            padding: 9px 12px;
+            background: var(--ink);
+            border: 1px solid var(--line);
+            border-radius: 9px;
+        }
+
+            .signed-in .avatar-chip {
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                background: var(--amber-soft);
+                color: var(--amber);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: var(--mono);
+                font-size: 11px;
+                font-weight: 500;
+            }
+
+        .persona-card {
+            background: var(--ink-2);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 20px 18px;
+            position: relative;
+        }
+
+        .persona-frame {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: linear-gradient(160deg, var(--ink-3), var(--ink));
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--display);
+            font-style: italic;
+            font-size: 22px;
+            color: var(--amber);
+            margin-bottom: 14px;
+        }
+
+        .persona-card h2 {
+            font-family: var(--display);
+            font-weight: 600;
+            font-size: 20px;
+            margin: 0 0 3px;
+        }
+
+        .persona-card .role {
+            font-family: var(--mono);
+            font-size: 11.5px;
+            color: var(--aqua);
+            letter-spacing: 0.03em;
+            margin: 0 0 10px;
+        }
+
+        .persona-card .bio {
+            font-size: 13px;
+            line-height: 1.55;
+            color: var(--chalk-dim);
+            margin: 0;
+        }
+
+        .stage {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .stage-intro {
+            font-family: var(--display);
+            font-style: italic;
+            font-weight: 500;
+            font-size: 26px;
+            line-height: 1.3;
+            margin: 4px 0 0;
+            max-width: 30ch;
+        }
+
+            .stage-intro .accent {
+                color: var(--amber);
+            }
+
+        .video-wrap {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(160deg, var(--ink-3), var(--ink-2));
+            border: 1px solid var(--line);
+            aspect-ratio: 16 / 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: box-shadow .4s;
+        }
+
+            .video-wrap[data-live="true"] {
+                box-shadow: 0 0 0 1px rgba(86,201,186,0.4), 0 0 40px -12px rgba(86,201,186,0.35);
+            }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+            video.on {
+                display: block;
+            }
+
+        .placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--chalk-dim);
+            text-align: center;
+            padding: 20px;
+        }
+
+            .placeholder .glyph {
+                width: 46px;
+                height: 46px;
+                border-radius: 50%;
+                border: 1.5px dashed var(--line);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: var(--display);
+                font-style: italic;
+                color: var(--chalk-dim);
+                font-size: 18px;
+            }
+
+            .placeholder p {
+                margin: 0;
+                font-size: 13.5px;
+                max-width: 26ch;
+            }
+
+        .wavebar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            background: var(--ink-2);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+        }
+
+            .wavebar canvas {
+                flex: 1;
+                height: 34px;
+                width: 100%;
+            }
+
+            .wavebar .wave-label {
+                font-family: var(--mono);
+                font-size: 11.5px;
+                letter-spacing: 0.03em;
+                color: var(--chalk-dim);
+                white-space: nowrap;
+            }
+
+        .transcript {
+            background: var(--ink-2);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+            .transcript summary {
+                cursor: pointer;
+                list-style: none;
+                padding: 14px 18px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-family: var(--mono);
+                font-size: 12px;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--chalk-dim);
+            }
+
+                .transcript summary::-webkit-details-marker {
+                    display: none;
+                }
+
+                .transcript summary .chev {
+                    transition: transform .2s;
+                }
+
+            .transcript[open] summary .chev {
+                transform: rotate(180deg);
+            }
+
+        .transcript-body {
+            padding: 4px 18px 18px;
+            max-height: 260px;
+            overflow-y: auto;
+        }
+
+        .msg {
+            padding: 9px 0;
+            border-top: 1px solid var(--line);
+            font-size: 13.5px;
+            line-height: 1.5;
+        }
+
+            .msg:first-child {
+                border-top: none;
+            }
+
+            .msg .who {
+                font-family: var(--mono);
+                font-size: 10.5px;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                display: block;
+                margin-bottom: 3px;
+            }
+
+            .msg.persona .who {
+                color: var(--amber);
+            }
+
+            .msg.user .who {
+                color: var(--aqua);
+            }
+
+        .msg-empty {
+            color: var(--chalk-dim);
+            font-size: 13px;
+            padding: 10px 0;
+        }
+
+        .feedback {
+            font-size: 13px;
+            color: var(--chalk-dim);
+            min-height: 18px;
+        }
+
+            .feedback[data-tone="error"] {
+                color: var(--danger);
+            }
+
+            .feedback[data-tone="ok"] {
+                color: var(--aqua);
+            }
+
+        @media (prefers-reduced-motion: reduce) {
+            .status-pill[data-state="connecting"] .led {
+                animation: none;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="container">
-
-        <div class="left-panel">
-
-            <h1>🤖 Formateur IA</h1>
-
-            <p class="subtitle">
-                Plateforme d'interaction avec votre Avatar IA
-            </p>
-
-            <div class="card">
-
-                <h3>🔐 Connexion</h3>
-
-                <label>Email</label>
-                <input id="email" placeholder="Votre email">
-
-                <label>Mot de passe</label>
-                <input id="password"
-                       type="password"
-                       placeholder="********">
-
-                <button onclick="login()">
-                    Se connecter
-                </button>
-
-            </div>
-
-            <div class="card">
-
-                <h3>🎓 Session Avatar</h3>
-
-                <label>ID Formateur</label>
-                <input id="formateurId"
-                       type="number"
-                       value="1">
-
-                <label>ID Module</label>
-                <input id="moduleId"
-                       type="number"
-                       value="1">
-
-                <button onclick="demarrerSession()">
-                    Démarrer l'avatar
-                </button>
-
-            </div>
-
-            <div id="status" class="status">
-                ⏳ Non connecté.
-            </div>
-
+    <div class="topbar">
+        <div class="brand">VIRTUAL<span class="dot">·</span>CLASSE</div>
+        <div class="status-pill" id="statusPill" data-state="idle">
+            <span class="led"></span>
+            <span id="statusText">Hors ligne</span>
         </div>
-
-        <div class="right-panel">
-
-            <div class="video-card">
-
-                <div class="video-header">
-                    <h2>🎥 Avatar IA</h2>
-                </div>
-
-                <video id="avatar-video"
-                       autoplay
-                       playsinline>
-                </video>
-
-            </div>
-
-        </div>
-
     </div>
 
+    <div class="layout">
+
+        <aside class="notebook">
+
+            <div class="card" id="loginCard">
+                <p class="eyebrow">Connexion</p>
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="vous@exemple.com" autocomplete="username">
+                <label for="password">Mot de passe</label>
+                <input id="password" type="password" placeholder="••••••••" autocomplete="current-password">
+                <button class="btn-primary" id="loginBtn">Se connecter</button>
+                <div class="signed-in" id="signedIn">
+                    <span class="avatar-chip" id="initials">–</span>
+                    <span id="signedInName">—</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="eyebrow">Séance</p>
+                <label for="formateurId">Id du formateur</label>
+                <input id="formateurId" type="number" value="4">
+                <label for="moduleId">Id du module</label>
+                <input id="moduleId" type="number" value="1">
+                <button class="btn-live" id="startBtn" disabled>Démarrer la séance</button>
+                <p class="feedback" id="feedback"></p>
+            </div>
+
+            <div class="persona-card">
+                <div class="persona-frame">A</div>
+                <h2>Alister</h2>
+                <p class="role">Formateur IA · Mathématiques</p>
+                <p class="bio">Présente les modules et répond aux questions à l'oral, en direct, comme en salle de classe.</p>
+            </div>
+
+        </aside>
+
+        <main class="stage">
+
+            <p class="stage-intro" id="stageIntro">Prêt·e à retrouver <span class="accent">Alister</span> ?</p>
+
+            <div class="video-wrap" id="videoWrap" data-live="false">
+                <video id="avatarVideo" autoplay playsinline></video>
+                <div class="placeholder" id="placeholder">
+                    <div class="glyph">A</div>
+                    <p>La séance démarre ici, en vidéo et à l'oral — connectez-vous puis lancez le cours.</p>
+                </div>
+            </div>
+
+            <div class="wavebar">
+                <span class="wave-label">VOIX</span>
+                <canvas id="waveCanvas" width="600" height="34"></canvas>
+            </div>
+
+            <details class="transcript">
+                <summary>
+                    <span>Transcription de la séance</span>
+                    <span class="chev">⌄</span>
+                </summary>
+                <div class="transcript-body" id="transcriptBody">
+                    <p class="msg-empty">Rien à afficher pour l'instant.</p>
+                </div>
+            </details>
+
+        </main>
+
+    </div>
 
     <script type="module">
         import { createClient } from "https://esm.sh/@anam-ai/js-sdk@latest";
 
         let jwtToken = null;
         let anamClient = null;
+        let audioCtx = null;
 
-        window.login = async function () {
+        const el = (id) => document.getElementById(id);
+        const statusPill = el("statusPill");
+        const statusText = el("statusText");
+        const feedback = el("feedback");
+        const startBtn = el("startBtn");
+        const loginBtn = el("loginBtn");
+        const signedIn = el("signedIn");
+        const loginCard = el("loginCard");
+        const videoWrap = el("videoWrap");
+        const video = el("avatarVideo");
+        const placeholder = el("placeholder");
+        const stageIntro = el("stageIntro");
+        const transcriptBody = el("transcriptBody");
 
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+        function setStatus(state, text) {
+            statusPill.dataset.state = state;
+            statusText.textContent = text;
+        }
 
-            const res = await fetch("/api/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email,
-                    password
-                })
-            });
+        function setFeedback(text, tone) {
+            feedback.textContent = text || "";
+            feedback.dataset.tone = tone || "";
+        }
 
-            if (!res.ok) {
-                document.getElementById("status").innerText = "❌ Connexion échouée.";
+        loginBtn.addEventListener("click", async () => {
+            const email = el("email").value.trim();
+            const password = el("password").value;
+
+            if (!email || !password) {
+                setFeedback("Entrez ton email et ton mot de passe.", "error");
                 return;
             }
 
-            const data = await res.json();
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Connexion...";
 
-            jwtToken = data.token;
+            try {
+                const res = await fetch("/api/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
 
-            document.getElementById("status").innerText =
-                "✅ Connecté en tant que " + data.nom;
+                if (!res.ok) {
+                    setFeedback("Email ou mot de passe incorrect.", "error");
+                    return;
+                }
 
-        };
+                const data = await res.json();
+                jwtToken = data.token;
 
-        window.demarrerSession = async function () {
+                loginCard.querySelectorAll("label, input, #loginBtn").forEach(n => n.style.display = "none");
+                signedIn.style.display = "flex";
+                el("signedInName").textContent = data.nom;
+                el("initials").textContent = data.nom.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase();
 
+                startBtn.disabled = false;
+                setFeedback("Connecté. Prêt à démarrer la séance.", "ok");
+            } catch (e) {
+                setFeedback("Impossible de joindre le serveur.", "error");
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = "Se connecter";
+            }
+        });
+
+        startBtn.addEventListener("click", async () => {
             if (!jwtToken) {
-
-                document.getElementById("status").innerText =
-                    "⚠ Connectez-vous d'abord.";
-
+                setFeedback("Connecte-toi d'abord.", "error");
                 return;
             }
 
-            const formateurId =
-                parseInt(document.getElementById("formateurId").value);
+            const formateurId = parseInt(el("formateurId").value, 10);
+            const moduleFormationId = parseInt(el("moduleId").value, 10);
 
-            const moduleFormationId =
-                parseInt(document.getElementById("moduleId").value);
+            startBtn.disabled = true;
+            setStatus("connecting", "Connexion en cours");
+            setFeedback("Démarrage de la séance avec le formateur...", null);
 
-            document.getElementById("status").innerText =
-                "⏳ Démarrage de l'avatar...";
+            try {
+                const res = await fetch("/api/avatar/session", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${jwtToken}`
+                    },
+                    body: JSON.stringify({ formateurId, moduleFormationId })
+                });
 
-            const res = await fetch("/api/avatar/session", {
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    setStatus("error", "Erreur");
+                    setFeedback(err.message || "La séance n'a pas pu démarrer.", "error");
+                    startBtn.disabled = false;
+                    return;
+                }
 
-                method: "POST",
+                const { sessionToken } = await res.json();
 
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${jwtToken}`
-                },
+                anamClient = createClient(sessionToken);
+                await anamClient.streamToVideoElement("avatarVideo");
 
-                body: JSON.stringify({
-                    formateurId,
-                    moduleFormationId
-                })
+                placeholder.style.display = "none";
+                video.classList.add("on");
+                videoWrap.dataset.live = "true";
+                stageIntro.textContent = "En direct avec Alister";
+                setStatus("live", "En direct");
+                setFeedback("Micro actif — parle librement, Alister t'entend.", "ok");
 
-            });
+                setupWaveform();
+                setupTranscript();
+            } catch (e) {
+                setStatus("error", "Erreur");
+                setFeedback("La connexion à l'avatar a échoué.", "error");
+                startBtn.disabled = false;
+            }
+        });
 
-            if (!res.ok) {
+        function setupTranscript() {
+            if (!anamClient || !anamClient.addListener) return;
+            try {
+                anamClient.addListener("MESSAGE_HISTORY_UPDATED", (messages) => {
+                    if (!messages || !messages.length) return;
+                    transcriptBody.innerHTML = messages.map(m => {
+                        const who = m.role === "persona" ? "Alister" : "Vous";
+                        const cls = m.role === "persona" ? "persona" : "user";
+                        const text = m.content || m.text || "";
+                        return `<div class="msg ${cls}"><span class="who">${who}</span>${text}</div>`;
+                    }).join("");
+                    transcriptBody.scrollTop = transcriptBody.scrollHeight;
+                });
+            } catch (e) {
+                // les noms d'evenements du SDK peuvent evoluer ; le transcript est un bonus.
+            }
+        }
 
-                const err = await res.json().catch(() => ({}));
+        function setupWaveform() {
+            const canvas = el("waveCanvas");
+            const ctx = canvas.getContext("2d");
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = canvas.clientWidth * dpr;
+            canvas.height = canvas.clientHeight * dpr;
+            ctx.scale(dpr, dpr);
 
-                document.getElementById("status").innerText =
-                    "❌ " + (err.message || res.statusText);
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-                return;
-
+            function drawFlatline() {
+                const w = canvas.clientWidth, h = canvas.clientHeight;
+                ctx.clearRect(0, 0, w, h);
+                ctx.strokeStyle = "#35473F";
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(0, h / 2);
+                ctx.lineTo(w, h / 2);
+                ctx.stroke();
             }
 
-            const { sessionToken } = await res.json();
+            if (reduceMotion || !video.srcObject) {
+                drawFlatline();
+                return;
+            }
 
-            anamClient = createClient(sessionToken);
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const source = audioCtx.createMediaStreamSource(video.srcObject);
+                const analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 256;
+                source.connect(analyser);
 
-            await anamClient.streamToVideoElement("avatar-video");
+                const data = new Uint8Array(analyser.frequencyBinCount);
 
-            document.getElementById("status").innerText =
-                "🎤 Avatar connecté, vous pouvez commencer à parler.";
+                function draw() {
+                    requestAnimationFrame(draw);
+                    analyser.getByteFrequencyData(data);
 
-        };
+                    const w = canvas.clientWidth, h = canvas.clientHeight;
+                    ctx.clearRect(0, 0, w, h);
+
+                    const bars = 42;
+                    const step = Math.floor(data.length / bars);
+                    const barWidth = w / bars;
+
+                    for (let i = 0; i < bars; i++) {
+                        const v = data[i * step] / 255;
+                        const barHeight = Math.max(2, v * h);
+                        ctx.fillStyle = v > 0.55 ? "#E7B547" : "#56C9BA";
+                        ctx.fillRect(i * barWidth + 1, (h - barHeight) / 2, barWidth - 2, barHeight);
+                    }
+                }
+                draw();
+            } catch (e) {
+                drawFlatline();
+            }
+        }
+
+        (function initFlatline() {
+            const canvas = el("waveCanvas");
+            const ctx = canvas.getContext("2d");
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = canvas.clientWidth * dpr;
+            canvas.height = canvas.clientHeight * dpr;
+            ctx.scale(dpr, dpr);
+            ctx.strokeStyle = "#35473F";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.clientHeight / 2);
+            ctx.lineTo(canvas.clientWidth, canvas.clientHeight / 2);
+            ctx.stroke();
+        })();
     </script>
 
 </body>
+</html>
